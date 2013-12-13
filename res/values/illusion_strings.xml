@@ -89,4 +89,8 @@
     <string name="blacklist_notification_list_private">Private</string>
     <string name="unblock_number">Unblock</string>
 
+    <string name="call_end_sound_title">Call end tone</string>
+    <string name="call_end_sound_summary">Play tone on end call</string>
+
+
 </resources>

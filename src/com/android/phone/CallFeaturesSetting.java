@@ -196,6 +196,8 @@ public class CallFeaturesSetting extends PreferenceActivity
 
     private static final String BUTTON_NON_INTRUSIVE_INCALL_KEY = "button_non_intrusive_incall";
     private static final String BUTTON_SMART_PHONE_CALL_KEY = "button_smart_phone_call";
+    private static final String BUTTON_CALL_END_SOUND_KEY = "button_call_end_sound";
+
     private Intent mContactListIntent;
 
     /** Event for Async voicemail change call */
@@ -289,6 +291,7 @@ public class CallFeaturesSetting extends PreferenceActivity
     private CheckBoxPreference mSmartCall;
     private ListPreference mFlipAction;
     private PreferenceScreen mButtonBlacklist;
+    private CheckBoxPreference mCallEndSound;
 
     private class VoiceMailProvider {
         public VoiceMailProvider(String name, Intent intent) {
@@ -555,6 +558,9 @@ public class CallFeaturesSetting extends PreferenceActivity
         } else if (preference == mSmartCall){
             Settings.System.putInt(getContentResolver(), Settings.System.SMART_PHONE_CALLER,
                     mSmartCall.isChecked() ? 1 : 0);
+        } else if (preference == mCallEndSound){
+            Settings.System.putInt(getContentResolver(), Settings.System.CALL_END_SOUND,
+                    mCallEndSound.isChecked() ? 1 : 0);
             return true;
         }
         return false;
@@ -1675,6 +1681,10 @@ public class CallFeaturesSetting extends PreferenceActivity
         mSmartCall = (CheckBoxPreference) findPreference(BUTTON_SMART_PHONE_CALL_KEY);
         mSmartCall.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.SMART_PHONE_CALLER, 0) != 0 ? true : false);
+        mCallEndSound = (CheckBoxPreference) findPreference(BUTTON_CALL_END_SOUND_KEY);
+        mCallEndSound.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.CALL_END_SOUND, 1) == 0 ? false : true);
+
 
         // create intent to bring up contact list
         mContactListIntent = new Intent(Intent.ACTION_GET_CONTENT);
